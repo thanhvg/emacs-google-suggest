@@ -20,7 +20,6 @@
 (defvar google-suggest-bufname "*google-suggestions*")
 
 (defvar google-suggest-keymap
-  "Kemap to interact with suggestion buffer."
   (let ((map (make-sparse-keymap)))
     (set-keymap-parent map minibuffer-local-map)
     (define-key map (kbd "C-k") 'google-suggest-prev)
@@ -28,7 +27,8 @@
     (define-key map (kbd "C-j") 'google-suggest-next)
     (define-key map (kbd "C-n") 'google-suggest-next)
     (define-key map (kbd "<RET>") 'exit-minibuffer)
-    map))
+    map)
+  "Kemap to interact with suggestion buffer.")
 
 (defvar google-suggest-input nil)
 
