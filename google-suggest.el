@@ -113,3 +113,5 @@ C-j/C-n for next and C-k/C-p for previous suggestion."
     (delete-minibuffer-contents)
     (insert item)
     (setq google-suggest-input item)))
+
+(provide 'google-suggest)
