@@ -1,4 +1,7 @@
+;;; google-suggest.el --- Get google suggestions
+
 ;; -*- lexical-binding: t -*-
+
 ;; copypasta
 ;; credit https://www.reddit.com/user/kcin
 ;; google and stackexchange integration
@@ -115,3 +118,4 @@ C-j/C-n for next and C-k/C-p for previous suggestion."
     (setq google-suggest-input item)))
 
 (provide 'google-suggest)
+;;; google-suggest.el ends here
