@@ -1,6 +1,4 @@
-;;; google-suggest.el --- Get google suggestions
-
-;; -*- lexical-binding: t -*-
+;;; google-suggest.el --- Get google suggestions   -*- lexical-binding: t -*-
 
 ;; copypasta
 ;; credit https://www.reddit.com/user/kcin
