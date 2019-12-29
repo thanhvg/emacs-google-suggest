@@ -36,7 +36,8 @@
 C-j/C-n for next and C-k/C-p for previous suggestion."
   (interactive)
   (let ((wincfg (current-window-configuration)))
-    (pop-to-buffer google-suggest-bufname)
+    (pop-to-buffer google-suggest-bufname '((display-buffer-below-selected display-buffer-at-bottom)
+                                            (window-height . 15)))
     (erase-buffer)
     (setq cursor-type nil)
     (add-hook 'post-command-hook 'google-suggest-post-command)
