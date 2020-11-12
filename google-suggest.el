@@ -7,6 +7,7 @@
 
 (require 'json)
 (require 'url)
+(require 'thingatpt)
 
 (defun google-suggest-get-completions (query callback)
   "Ask google for suggestions of QUERY and pass json result to CALLBACK."
@@ -17,6 +18,10 @@
 
 (defvar google-suggest-bufname "*google-suggestions*")
 
+(defvar google-suggest-current-buffer nil)
+
+(defvar google-suggest-input nil)
+
 (defvar google-suggest-keymap
   (let ((map (make-sparse-keymap)))
     (set-keymap-parent map minibuffer-local-map)
@@ -24,17 +29,17 @@
     (define-key map (kbd "C-p") 'google-suggest-prev)
     (define-key map (kbd "C-j") 'google-suggest-next)
     (define-key map (kbd "C-n") 'google-suggest-next)
+    (define-key map (kbd "M-n") 'google-suggest-thing-at-point-or-region)
     (define-key map (kbd "<RET>") 'exit-minibuffer)
     map)
   "Kemap to interact with suggestion buffer.")
-
-(defvar google-suggest-input nil)
 
 ;;;###autoload
 (defun google-suggest ()
   "Get google suggestion while typing.
 C-j/C-n for next and C-k/C-p for previous suggestion."
   (interactive)
+  (setq google-suggest-current-buffer (current-buffer))
   (let ((wincfg (current-window-configuration)))
     (pop-to-buffer google-suggest-bufname '((display-buffer-below-selected display-buffer-at-bottom)
                                             (window-height . 15)))
@@ -115,6 +120,18 @@ C-j/C-n for next and C-k/C-p for previous suggestion."
     (delete-minibuffer-contents)
     (insert item)
     (setq google-suggest-input item)))
+
+(defun google-suggest-thing-at-point-or-region ()
+  "Grab thing at point or active region and insert to prompt."
+  (interactive)
+  (with-current-buffer google-suggest-current-buffer
+    (when-let (item (if (use-region-p)
+                        (buffer-substring-no-properties (region-beginning) (region-end))
+                      (thing-at-point 'symbol t)))
+      (select-window (minibuffer-window))
+      (delete-minibuffer-contents)
+      (insert item)
+      (setq google-suggest-input item))))
 
 (provide 'google-suggest)
 ;;; google-suggest.el ends here
