@@ -41,7 +41,7 @@ C-j/C-n for next and C-k/C-p for previous suggestion."
   (interactive)
   (setq google-suggest-current-buffer (current-buffer))
   (let ((wincfg (current-window-configuration)))
-    (pop-to-buffer google-suggest-bufname '((display-buffer-below-selected display-buffer-at-bottom)
+    (pop-to-buffer google-suggest-bufname '((display-buffer-at-bottom)
                                             (window-height . 15)))
     (erase-buffer)
     (setq cursor-type nil)
